@@ -1,0 +1,28 @@
+---
+title: "R_E_opendata"
+author: "Kun-Hsing Liu"
+date: "2020/10/12"
+output: html_document
+---
+示範各縣市空水廢資料，綜合畫在同一張圖上
+* 原始資料待補
+
+```{r}
+
+library(ggplot2)
+#library(gapminder)
+library(magrittr)
+library(ggrepel)
+library(readxl)
+library(dplyr)
+gapminder <- read_excel("/Volumes/GoogleDrive/我的雲端硬碟/0WORK/FY109_藍星球_ERDB/Events/1019_月會簡報/gapminder.xlsx")
+#gapminder <- read_excel("gapminder.xlsx")
+
+gapminder %>%
+  filter(縣市 == "台北") %>%
+  ggplot(aes(x = 總懸浮微粒, y = `廢(污)水產生量` )) +
+  geom_point(aes(size = `一般廢棄物產生量(公噸)`, color = 縣市)) +
+  #geom_text(aes(label = `年度`, family = "黑體-繁 中黑"))+
+  geom_text_repel(aes(label = `年度`, family = "黑體-繁 中黑"))+
+  theme(text = element_text(family = "Heiti TC Light"))
+```
